@@ -1,4 +1,4 @@
-import { BigNumberish, BigNumber, providers } from 'ethers'
+import { providers } from 'ethers'
 
 export type ReadableProvider = providers.JsonRpcProvider | providers.Web3Provider
 
