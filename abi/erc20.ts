@@ -1,4 +1,4 @@
-import { ContractInterface, utils } from 'ethers'
+import { ContractInterface, utils, Contract, BigNumberish } from 'ethers'
 
 const ERC20ABI: Exclude<ContractInterface, utils.Interface> = [
   {
@@ -272,6 +272,42 @@ const ERC20ABI: Exclude<ContractInterface, utils.Interface> = [
   }
 ]
 
+const enum ERC20Functions {
+  Name = 'name',
+  Symbol = 'symbol',
+  Version = 'version',
+  Decimals = 'decimals',
+  TotalSupply = 'totalSupply',
+  Approve = 'approve',
+  TransferFrom = 'transferFrom',
+  BalanceOf = 'balanceOf',
+  Transfer = 'transfer',
+  ApproveAndCall = 'approveAndCall',
+  Allowance = 'allowance',
+}
+
+const enum ERC20Events {
+  Transfer = 'Transfer',
+  Approval = 'Approval',
+}
+
+declare class ERC20Contract extends Contract {
+  name(): Promise<string>;
+  symbol(): Promise<string>;
+  version(): Promise<string>;
+  decimals(): Promise<BigNumberish>;
+  totalSupply(): Promise<BigNumber>;
+  balanceOf(owner: string): Promise<BigNumber>;
+  allowance(owner: string, spender: string): Promise<BigNumber>;
+  approve(spender: string, value: BigNumberish): Promise<boolean>;
+  transferFrom(from: string, to: string, value: BigNumberish): Promise<boolean>;
+  transfer(to: string, value: BigNumberish): Promise<boolean>;
+  approveAndCall(spender: string, value: BigNumberish, extraData: string): Promise<boolean>;
+}
+
 export {
-  ERC20ABI
+  ERC20ABI,
+  ERC20Functions,
+  ERC20Events,
+  ERC20Contract
 }
