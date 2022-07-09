@@ -20,6 +20,8 @@ export const enum ERC1155Functions {
   SupportsInterface = 'supportsInterface'
 }
 
+export type ERC721Property = ERC1155Functions.Name | ERC1155Functions.Symbol | ERC1155Functions.TemplateURI | ERC1155Functions.CurrentSupply
+
 export const enum ERC1155Events {
   ApprovalForAll = 'ApprovalForAll', /* account, operator, bool */
   CreatorChanged = 'CreatorChanged', /* tokenId, creatorAddress */
