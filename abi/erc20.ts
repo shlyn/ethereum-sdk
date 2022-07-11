@@ -1,4 +1,4 @@
-import { ContractInterface, utils, Contract, BigNumberish } from 'ethers'
+import { ContractInterface, utils, BigNumber, BigNumberish, ContractTransaction } from 'ethers'
 
 const ERC20ABI: Exclude<ContractInterface, utils.Interface> = [
   {
@@ -272,42 +272,42 @@ const ERC20ABI: Exclude<ContractInterface, utils.Interface> = [
   }
 ]
 
+// EIP-20: Token Standard
 const enum ERC20Functions {
   Name = 'name',
   Symbol = 'symbol',
   Version = 'version',
   Decimals = 'decimals',
   TotalSupply = 'totalSupply',
-  Approve = 'approve',
+  Transfer = 'transfer',
   TransferFrom = 'transferFrom',
   BalanceOf = 'balanceOf',
-  Transfer = 'transfer',
-  ApproveAndCall = 'approveAndCall',
+  Approve = 'approve',
   Allowance = 'allowance',
 }
 
+// EIP-20: Token Standard
 const enum ERC20Events {
   Transfer = 'Transfer',
   Approval = 'Approval',
 }
 
-declare class ERC20Contract extends Contract {
+// EIP-20: Token Standard
+interface BaseERC20Interface {
   name(): Promise<string>;
   symbol(): Promise<string>;
-  version(): Promise<string>;
-  decimals(): Promise<BigNumberish>;
+  decimals(): Promise<number>;
   totalSupply(): Promise<BigNumber>;
   balanceOf(owner: string): Promise<BigNumber>;
   allowance(owner: string, spender: string): Promise<BigNumber>;
-  approve(spender: string, value: BigNumberish): Promise<boolean>;
-  transferFrom(from: string, to: string, value: BigNumberish): Promise<boolean>;
-  transfer(to: string, value: BigNumberish): Promise<boolean>;
-  approveAndCall(spender: string, value: BigNumberish, extraData: string): Promise<boolean>;
+  transfer(to: string, value: BigNumberish): Promise<ContractTransaction>;
+  transferFrom(from: string, to: string, value: BigNumberish): Promise<ContractTransaction>;
+  approve(spender: string, value: BigNumberish): Promise<ContractTransaction>;
 }
 
 export {
   ERC20ABI,
   ERC20Functions,
   ERC20Events,
-  ERC20Contract
+  BaseERC20Interface
 }
